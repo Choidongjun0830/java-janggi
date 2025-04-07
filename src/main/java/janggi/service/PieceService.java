@@ -42,6 +42,6 @@ public class PieceService {
     }
 
     public int findPieceIdByPosition(final Piece piece) {
-        return pieceDao.findPieceByTypeAndSide(piece.getType(), piece.getTurn());
+        return pieceDao.findPieceByTypeAndSide(piece.getType(), piece.getSide());
     }
 }

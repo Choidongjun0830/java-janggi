@@ -1,6 +1,7 @@
 package janggi.domain.piece.unlimit;
 
 import janggi.domain.Turn;
+import janggi.domain.board.PathFinder;
 import janggi.domain.board.Position;
 import janggi.domain.move.Direction;
 import janggi.domain.move.Route;
@@ -21,12 +22,12 @@ public abstract class UnLimitMovable implements Piece {
     }
 
     @Override
-    public List<Position> computeReachableDestinations(final Position position, final Map<Position, Piece> board) {
+    public List<Position> computeReachableDestinations(final Position position, final PathFinder pathFinder) {
         List<Route> candidateRoutes = computeCandidateDirections(position);
         List<Position> reachableDestinations = new ArrayList<>();
         for (Route route : candidateRoutes) {
             List<Position> positions = route.getPositions();
-            reachableDestinations.addAll(addValidDestination(positions, board));
+            reachableDestinations.addAll(addValidDestination(positions, pathFinder));
         }
         return reachableDestinations;
     }
@@ -44,7 +45,7 @@ public abstract class UnLimitMovable implements Piece {
         return movableDirections;
     }
 
-    protected abstract List<Position> addValidDestination(final List<Position> positions, final Map<Position, Piece> board);
+    protected abstract List<Position> addValidDestination(final List<Position> positions, final PathFinder pathFinder);
 
     private Route createCandidateDirections(final Position position, final Direction direction) {
         Route route = new Route(position);
@@ -93,7 +94,7 @@ public abstract class UnLimitMovable implements Piece {
     }
 
     @Override
-    public Turn getTurn() {
+    public Turn getSide() {
         return side;
     }
 }

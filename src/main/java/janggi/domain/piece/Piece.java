@@ -1,25 +1,25 @@
 package janggi.domain.piece;
 
 import janggi.domain.Turn;
+import janggi.domain.board.PathFinder;
 import janggi.domain.board.Position;
 
 import java.util.List;
-import java.util.Map;
 
 public interface Piece {
 
     PieceType getType();
 
-    List<Position> computeReachableDestinations(final Position position, final Map<Position, Piece> board);
+    List<Position> computeReachableDestinations(final Position position, final PathFinder pathFinder);
 
     boolean isHan();
 
     boolean isCho();
 
-    Turn getTurn();
+    Turn getSide();
 
     default boolean isAlly(Piece piece) {
-        return getTurn() == piece.getTurn();
+        return getSide() == piece.getSide();
     }
 
     default boolean isOccupied() {
@@ -35,6 +35,6 @@ public interface Piece {
     }
 
     default boolean isSameSide(final Turn turn) {
-        return turn == getTurn();
+        return turn == getSide();
     }
 }

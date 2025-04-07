@@ -41,9 +41,4 @@ public class Horse extends LimitMovable {
 
         return List.of();
     }
-
-    @Override
-    public PieceType getType() {
-        return PieceType.HORSE;
-    }
 }

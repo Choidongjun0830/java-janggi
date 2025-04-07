@@ -1,6 +1,7 @@
 package janggi.domain.piece;
 
 import janggi.domain.Turn;
+import janggi.domain.board.PathFinder;
 import janggi.domain.board.Position;
 
 import java.util.List;
@@ -15,7 +16,7 @@ public class Empty implements Piece {
     }
 
     @Override
-    public List<Position> computeReachableDestinations(final Position position, final Map<Position, Piece> board) {
+    public List<Position> computeReachableDestinations(final Position position, final PathFinder pathFinder) {
         throw new IllegalArgumentException("[ERROR] 프로그램에 오류가 발생했습니다.");
     }
 
@@ -35,7 +36,7 @@ public class Empty implements Piece {
     }
 
     @Override
-    public Turn getTurn() {
+    public Turn getSide() {
         return Turn.NONE;
     }
 }

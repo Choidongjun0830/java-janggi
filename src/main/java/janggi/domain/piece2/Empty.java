@@ -22,11 +22,6 @@ public class Empty extends Movable {
     }
 
     @Override
-    public boolean isHan() {
-        return false;
-    }
-
-    @Override
     public Turn getTurn() {
         return Turn.NONE;
     }

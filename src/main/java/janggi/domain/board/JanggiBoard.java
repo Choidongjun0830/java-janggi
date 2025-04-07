@@ -36,7 +36,7 @@ public class JanggiBoard {
         validatePieceSelect(turn, position);
 
         Piece piece = board.get(position);
-        List<Position> reachableDestinations = piece.computeReachableDestinations(position, board);
+        List<Position> reachableDestinations = piece.computeReachableDestinations(position, new PathFinder(new JanggiBoard(board)));
         validateReachableDestinations(reachableDestinations);
         return reachableDestinations;
     }
@@ -95,5 +95,9 @@ public class JanggiBoard {
 
     public Map<Position, Piece> getBoard() {
         return new HashMap<>(board);
+    }
+
+    public Piece getPositionPiece(final Position position) {
+        return board.get(position);
     }
 }

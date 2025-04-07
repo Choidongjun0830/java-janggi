@@ -1,6 +1,7 @@
 package janggi.domain.piece.unlimit;
 
 import janggi.domain.Turn;
+import janggi.domain.board.PathFinder;
 import janggi.domain.board.Position;
 import janggi.domain.piece.Piece;
 import janggi.domain.piece.PieceType;
@@ -16,33 +17,25 @@ public class Cannon extends UnLimitMovable {
     }
 
     @Override
-    public List<Position> addValidDestination(final List<Position> positions, final Map<Position, Piece> board) {
+    public List<Position> addValidDestination(final List<Position> positions, final PathFinder pathFinder) {
         List<Position> reachableDestinations = new ArrayList<>();
         boolean isJumped = false;
         for (Position position : positions) {
-            Piece positionPiece = board.get(position);
-            if (positionPiece.isCannon()) {
+            if (pathFinder.isCannon(position)) {
                 break;
             }
-            if (!isJumped && positionPiece.isOccupied()) {
+            if (!isJumped && pathFinder.isOccupied(position)) {
                 isJumped = true;
                 continue;
             }
             if(isJumped) {
-                reachableDestinations.addAll(filterValidDestination(position, positionPiece));
-                if(positionPiece.isOccupied()) {
+                reachableDestinations.addAll(pathFinder.filterValidDestination(position, getSide()));
+                if(pathFinder.isOccupied(position)) {
                     break;
                 }
             }
         }
         return reachableDestinations;
-    }
-
-    private List<Position> filterValidDestination(final Position position, final Piece positionPiece) {
-        if(!positionPiece.isOccupied() || !isAlly(positionPiece)) {
-            return List.of(position);
-        }
-        return List.of();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package janggi.domain.piece.unlimit;
 
 import janggi.domain.Turn;
+import janggi.domain.board.PathFinder;
 import janggi.domain.board.Position;
 import janggi.domain.piece.Piece;
 import janggi.domain.piece.PieceType;
@@ -16,23 +17,22 @@ public class Chariot extends UnLimitMovable {
     }
 
     @Override
-    public PieceType getType() {
-        return PieceType.CHARIOT;
-    }
-
-    @Override
-    public List<Position> addValidDestination(final List<Position> positions, final Map<Position, Piece> board) {
+    public List<Position> addValidDestination(final List<Position> positions, final PathFinder pathFinder) {
         List<Position> reachableDestinations = new ArrayList<>();
         for (Position position : positions) {
-            Piece targetPiece = board.get(position);
-            if (isAlly(targetPiece)) {
+            if (pathFinder.isAlly(position, getSide())) {
                 break;
             }
             reachableDestinations.add(position);
-            if (targetPiece.isOccupied() && !isAlly(targetPiece)) {
+            if (pathFinder.isEnemy(position, getSide())) {
                 break;
             }
         }
         return reachableDestinations;
+    }
+
+    @Override
+    public PieceType getType() {
+        return PieceType.CHARIOT;
     }
 }

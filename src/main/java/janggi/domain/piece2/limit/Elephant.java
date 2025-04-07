@@ -42,9 +42,4 @@ public class Elephant extends LimitMovable {
 
         return List.of();
     }
-
-    @Override
-    public PieceType getType() {
-        return PieceType.ELEPHANT;
-    }
 }
